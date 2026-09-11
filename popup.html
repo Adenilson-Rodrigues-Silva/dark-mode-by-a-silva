@@ -12,8 +12,8 @@
     }
 
     body {
-      width: 280px;
-      padding: 18px;
+      width: 290px;
+      padding: 16px;
       margin: 0;
       background-color: var(--bg-color);
       color: var(--text-main);
@@ -33,14 +33,47 @@
       font-size: 16px;
       font-weight: 700;
       color: var(--accent-color);
-      letter-spacing: 0.5px;
     }
 
+    /* Abas de Navegação */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #29292e;
+      margin-bottom: 14px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px 0;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+    }
+
+    .tab-btn.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Cards e Controles */
     .site-card {
       background-color: var(--card-bg);
       border-radius: 8px;
       padding: 10px 12px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       border: 1px solid #29292e;
     }
 
@@ -49,13 +82,13 @@
       color: var(--text-muted);
       margin-bottom: 8px;
       word-break: break-all;
-      text-transform: lowercase;
     }
 
     .toggle-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 6px;
     }
 
     .toggle-label {
@@ -63,19 +96,15 @@
       font-weight: 600;
     }
 
-    /* Modern Toggle Switch */
+    /* Modern Switch */
     .switch {
       position: relative;
       display: inline-block;
-      width: 42px;
-      height: 22px;
+      width: 40px;
+      height: 20px;
     }
 
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+    .switch input { opacity: 0; width: 0; height: 0; }
 
     .slider-toggle {
       position: absolute;
@@ -83,14 +112,14 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background-color: #323238;
       transition: .3s;
-      border-radius: 22px;
+      border-radius: 20px;
     }
 
     .slider-toggle:before {
       position: absolute;
       content: "";
-      height: 16px;
-      width: 16px;
+      height: 14px;
+      width: 14px;
       left: 3px;
       bottom: 3px;
       background-color: #ffffff;
@@ -98,36 +127,25 @@
       border-radius: 50%;
     }
 
-    input:checked + .slider-toggle {
-      background-color: var(--accent-color);
-    }
+    input:checked + .slider-toggle { background-color: var(--accent-color); }
+    input:checked + .slider-toggle:before { transform: translateX(20px); }
 
-    input:checked + .slider-toggle:before {
-      transform: translateX(20px);
-    }
-
-    /* Sliders styling */
-    .control-block {
-      margin-bottom: 14px;
-    }
+    /* Controles de Sliders */
+    .control-block { margin-bottom: 12px; }
 
     .control-header {
       display: flex;
       justify-content: space-between;
       font-size: 12px;
-      margin-bottom: 6px;
-      color: var(--text-main);
+      margin-bottom: 4px;
     }
 
-    .value-badge {
-      color: var(--accent-color);
-      font-weight: 600;
-    }
+    .value-badge { color: var(--accent-color); font-weight: 600; }
 
     input[type=range] {
       -webkit-appearance: none;
       width: 100%;
-      height: 6px;
+      height: 5px;
       border-radius: 3px;
       background: #323238;
       outline: none;
@@ -135,61 +153,108 @@
 
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: var(--accent-color);
       cursor: pointer;
-      transition: transform 0.1s;
     }
 
-    input[type=range]::-webkit-slider-thumb:hover {
-      transform: scale(1.15);
+    /* Lista de Exceções */
+    .site-list {
+      max-height: 180px;
+      overflow-y: auto;
     }
 
-    /* Footer */
+    .site-item {
+      display: flex;
+      align-items: center;
+      background-color: var(--card-bg);
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--text-main);
+    }
+
+    .empty-msg {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 15px 0;
+    }
+
     .footer {
-      margin-top: 18px;
+      margin-top: 14px;
       padding-top: 10px;
       border-top: 1px solid #29292e;
       text-align: center;
       font-size: 10px;
       color: var(--text-muted);
-      letter-spacing: 0.3px;
     }
   </style>
 </head>
 <body>
+
   <div class="header">
     <h2>Dark Mode Custom</h2>
   </div>
 
-  <div class="site-card">
-    <div class="site-domain" id="siteDomain">carregando site...</div>
-    <div class="toggle-row">
-      <span class="toggle-label">Ativar neste site</span>
-      <label class="switch">
-        <input type="checkbox" id="siteToggle">
-        <span class="slider-toggle"></span>
-      </label>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tab-general">GERAL</button>
+    <button class="tab-btn" data-tab="tab-list">SITES ATIVOS</button>
+  </div>
+
+  <!-- Aba 1: Geral -->
+  <div id="tab-general" class="tab-content active">
+    <div class="site-card">
+      <div class="site-domain" id="siteDomain">carregando...</div>
+      <div class="toggle-row">
+        <span class="toggle-label">Ativar neste site</span>
+        <label class="switch">
+          <input type="checkbox" id="siteToggle">
+          <span class="slider-toggle"></span>
+        </label>
+      </div>
+      <div class="toggle-row" style="margin-top: 10px;">
+        <span class="toggle-label" style="font-size: 12px;">Modo Inteligente (Preservar Mídia)</span>
+        <label class="switch">
+          <input type="checkbox" id="smartMediaToggle" checked>
+          <span class="slider-toggle"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="control-block">
+      <div class="control-header">
+        <span>Brilho</span>
+        <span class="value-badge" id="brightnessVal">100%</span>
+      </div>
+      <input type="range" id="brightness" min="20" max="150" value="100">
+    </div>
+
+    <div class="control-block">
+      <div class="control-header">
+        <span>Contraste</span>
+        <span class="value-badge" id="contrastVal">100%</span>
+      </div>
+      <input type="range" id="contrast" min="50" max="150" value="100">
+    </div>
+
+    <div class="control-block">
+      <div class="control-header">
+        <span>Night Shift (Luz Amarela)</span>
+        <span class="value-badge" id="warmthVal">0%</span>
+      </div>
+      <input type="range" id="warmth" min="0" max="100" value="0">
     </div>
   </div>
 
-  <div class="control-block">
-    <div class="control-header">
-      <span>Brilho</span>
-      <span class="value-badge" id="brightnessVal">100%</span>
+  <!-- Aba 2: Lista de Exceções -->
+  <div id="tab-list" class="tab-content">
+    <div class="site-list" id="siteList">
+      <!-- Gerado via JS -->
     </div>
-    <input type="range" id="brightness" min="20" max="150" value="100">
-  </div>
-
-  <div class="control-block">
-    <div class="control-header">
-      <span>Contraste</span>
-      <span class="value-badge" id="contrastVal">100%</span>
-    </div>
-    <input type="range" id="contrast" min="50" max="150" value="100">
   </div>
 
   <div class="footer">
