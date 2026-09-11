@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Dark Mode Extension",
+  "version": "1.0",
+  "description": "Ativa o modo escuro nas páginas.",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
